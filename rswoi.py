@@ -9,7 +9,6 @@ def generate_data(tickers, interval:str, outputsize:str, ts):
     Collects data for a set of tickers and return a dictionary,
     with keys being ticker name and values being pandas dataframe corresponding to the key.
     """
-    
     ohlc_intraday = {}
     attempts = 0
     drop = []
