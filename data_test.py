@@ -17,6 +17,3 @@ for k,v in generated_data_daily.items():
     data_with_atr.update({k:v_})
     
 print(data_with_atr)
-
-# print(data_with_atr.head())
-# data_with_atr.to_csv("ssss.csv")
