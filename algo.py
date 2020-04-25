@@ -31,7 +31,6 @@ def generate_data(tickers, interval: str, outputsize: str, ts):
         attempts += 1
     return ohlc_intraday
 
-
 def getSMA(dataframe, period, on):
     """
     Calculated the Simple Moving Average.
