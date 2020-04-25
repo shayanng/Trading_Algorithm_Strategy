@@ -1,14 +1,8 @@
 from alpha_vantage.timeseries import TimeSeries
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas_datareader.data as web
 import pandas as pd
 import datetime
 import time
-import sys
-import statsmodels.api as sm
-plt.style.use("ggplot")
-
 
 ## generating data from YF API
 def generate_data(tickers, interval:str = "d", n_per:int = 30):
@@ -33,7 +27,6 @@ def generate_data(tickers, interval:str = "d", n_per:int = 30):
         attempt += 1
     return ohlc_per
 
-
 ## generating data from Alpha vantage API (only for intraday data)
 def generate_data_intraday(tickers, interval: str, outputsize: str, ts):
     """
@@ -57,15 +50,3 @@ def generate_data_intraday(tickers, interval: str, outputsize: str, ts):
                 continue
         attempts += 1
     return ohlc_intraday
-
-
-# API_KEY = "3R9JOE98DJOXYHKJ"
-# ts = TimeSeries(key=API_KEY, output_format="pandas")  # initialise timeseries
-# TICKERS = ["IBM", "AAPL", "TSLA", "NVDA"]
-# generated_data = generate_data_intraday(tickers=TICKERS, interval="5min", outputsize="full",
-#                                ts=ts)  # dictionary of collected data
-#
-# for k in generated_data.keys():
-#     generated_data[k].to_csv(f"data_{k}.csv")  # save as csv
-
-

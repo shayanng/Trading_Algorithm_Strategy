@@ -1,8 +1,3 @@
-import pandas_datareader.data as web
-import matplotlib.pyplot as plt
-import datetime
-
-
 def MACD(DF, a, b, c):
     df = DF.copy()
     df["MA_Fast"] = df["Adj Close"].ewm(span = a, min_periods = a).mean()
@@ -39,3 +34,21 @@ def ATR(DF, n):
     #df['ATR'] = df['TR'].ewm(span=n,adjust=False,min_periods=n).mean()
     df2 = df.drop(['H-L','H-PC','L-PC'],axis=1)
     return df2
+
+
+def getSMA(dataframe, period, on):
+    """
+    Calculated the Simple Moving Average.
+
+    Args:
+        dataframe: pandas dataframe.
+        period: the value for moving average window.
+        on: requested column (e.g: Adj close, close, etc).
+
+
+    Returns:
+        dataframe containing the sma as a column.
+    """
+
+    dataframe[f"sma"] = dataframe[on].rolling(period).mean()
+    return dataframe
