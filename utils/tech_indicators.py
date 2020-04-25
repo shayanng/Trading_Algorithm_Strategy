@@ -32,8 +32,8 @@ def ATR(DF, n):
     df['TR']=df[['H-L','H-PC','L-PC']].max(axis=1,skipna=False)
     df['ATR'] = df['TR'].rolling(n).mean()
     #df['ATR'] = df['TR'].ewm(span=n,adjust=False,min_periods=n).mean()
-    df2 = df.drop(['H-L','H-PC','L-PC'],axis=1)
-    return df2
+    # df2 = df.drop(['H-L','H-PC','L-PC'],axis=1)
+    return df["ATR"]
 
 
 def getSMA(dataframe, period, on):
