@@ -32,12 +32,77 @@ def generate_data(tickers, interval: str, outputsize: str, ts):
     return ohlc_intraday
 
 
+def getSMA(dataframe, period, on):
+    """
+    Calculated the Simple Moving Average.
+
+    Args:
+        dataframe: pandas dataframe.
+        period: the value for moving average window.
+        on: requested column (e.g: Adj close, close, etc).
+
+
+    Returns:
+        dataframe containing the sma as a column.
+    """
+
+    dataframe[f"sma"] = dataframe[on].rolling(period).mean()
+    return dataframe
+
+def getPervValues(dataframe, period, on):
+    """
+    Gets previous values of sma and requested column.
+
+    Args:
+        dataframe: pandas dataframe.
+        period: the value on this many indecies in the past.
+        on: requested column (e.g: Adj close, close, etc)
+
+
+    Returns:
+        dataframe containing the shifted values of sma and the requested column
+    """
+    dataframe["shifted_value"] = dataframe[on].shift(period)
+    dataframe["shifted_sma"] = dataframe["sma"].shift(period)
+    
+    return dataframe
+
+def apply_sma_co(dataframe, on):
+    """
+    Applies SMA crossover strategy
+
+    Args:
+        dataframe: pandas dataframe.
+        on: requested column (e.g: Adj close, close, etc)
+
+
+    Returns:
+        dataframe containing the signal
+    """
+    def get_signal(x):
+        if ((x["shifted_value"] < x["shifted_sma"]) and (x[on] > x["sma"])):
+            return("BUY")
+        elif ((x["shifted_value"] > x["shifted_sma"]) and (x[on] < x["sma"])):
+            return("SELL")
+        else:
+            return("NO_ACTION")
+    dataframe["signal"] = dataframe.apply(get_signal, axis=1)
+    return dataframe
+
+
+
 API_KEY = "3R9JOE98DJOXYHKJ"
 ts = TimeSeries(key=API_KEY, output_format="pandas")  # initialise timeseries
 TICKERS = ["IBM", "AAPL"]
-generated_data = generate_data(tickers=TICKERS, interval="5min", outputsize="full",
-                               ts=ts)  # dictionary of collected data
+# generated_data = generate_data(tickers=TICKERS, interval="5min", outputsize="full",
+#                                ts=ts)  # dictionary of collected data
 
-for k in generated_data.keys():
-    generated_data[k].to_csv(f"data_{k}.csv")  # save as csv
+# for k in generated_data.keys():
+#     generated_data[k].to_csv(f"data_{k}.csv")  # save as csv
 
+df = pd.read_csv("data_AAPL.csv") # read data
+df = getSMA(dataframe=df, period=10, on="Adj Close")
+df = getPervValues(dataframe=df, period=1, on="Adj Close")
+df = apply_sma_co(dataframe=df, on="Adj Close")
+df.to_csv("test.csv")
+print(df.tail())
