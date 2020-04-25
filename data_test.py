@@ -18,6 +18,4 @@ for k,v in generated_data_daily.items():
     
 print(data_with_atr)
 print("hi shayan")
-#%%
-
-
+print("hello rn")
