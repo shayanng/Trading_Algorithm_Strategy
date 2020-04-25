@@ -31,6 +31,7 @@ def generate_data(tickers, interval: str, outputsize: str, ts):
         attempts += 1
     return ohlc_intraday
 
+
 def getSMA(dataframe, period, on):
     """
     Calculated the Simple Moving Average.
@@ -47,6 +48,7 @@ def getSMA(dataframe, period, on):
 
     dataframe[f"sma"] = dataframe[on].rolling(period).mean()
     return dataframe
+
 
 def getPervValues(dataframe, period, on):
     """
@@ -65,6 +67,7 @@ def getPervValues(dataframe, period, on):
     dataframe["shifted_sma"] = dataframe["sma"].shift(period)
     
     return dataframe
+
 
 def apply_sma_co(dataframe, on):
     """
