@@ -27,9 +27,3 @@ print(df.tail())
 
 
 
-def stochastic(df,a,b,c):
-    "function to calculate stochastic"
-    df['k']=((df['c'] - df['l'].rolling(a).min())/(df['h'].rolling(a).max()-df['l'].rolling(a).min()))*100
-    df['K']=df['k'].rolling(b).mean()
-    df['D']=df['K'].rolling(c).mean()
-    return df
