@@ -7,7 +7,6 @@ def MACD(DF, a, b, c):
     df.dropna(inplace = True)
     return df
 
-
 def Bollinger_Bands(DF, n):
     """
     this function calculates the bollinger bands
@@ -19,7 +18,6 @@ def Bollinger_Bands(DF, n):
     df["BB_width"] = df["BB_up"] - df["BB_dn"]
     df.dropna(inplace=True)
     return df
-
 
 def ATR(DF, n):
     """
@@ -34,7 +32,6 @@ def ATR(DF, n):
     #df['ATR'] = df['TR'].ewm(span=n,adjust=False,min_periods=n).mean()
     # df2 = df.drop(['H-L','H-PC','L-PC'],axis=1)
     return df["ATR"]
-
 
 def getSMA(dataframe, period, on):
     """
@@ -53,7 +50,6 @@ def getSMA(dataframe, period, on):
     dataframe[f"sma"] = dataframe[on].rolling(period).mean()
     return dataframe
 
-
 def slow_fast_SMA(dataframe, fast, slow):
     """
     Calculates both the slow and fast moving averages for the data
@@ -61,17 +57,6 @@ def slow_fast_SMA(dataframe, fast, slow):
     dataframe['sma_fast']=dataframe['Adj Close'].rolling(fast).mean()
     dataframe['sma_slow']=dataframe['Adj Close'].rolling(slow).mean()
     return dataframe
-
-# # test for slow_fast_SMA function
-# import pandas as pd
-# import matplotlib.pyplot as plt
-# plt.style.use("ggplot")
-#
-# kk = pd.read_csv("data/data_AAPL.csv")
-# kk = slow_fast_SMA(kk, 100, 200)
-# kk[["Adj Close", "sma_fast", "sma_slow"]].plot()
-# plt.show()
-
 
 def stochastic(dataframe, a, b, c):
     """
@@ -81,16 +66,3 @@ def stochastic(dataframe, a, b, c):
     dataframe["k"] = dataframe["k"].rolling(b).mean()
     dataframe["D"] = dataframe["k"].rolling(c).mean()
     return dataframe
-
-# # test for stochastic function
-# import pandas as pd
-# import matplotlib.pyplot as plt
-# plt.style.use("ggplot")
-#
-# kk = pd.read_csv("data/data_AAPL.csv")
-# kk = slow_fast_SMA(kk, 100, 200)
-# kk = stochastic(kk, 14, 3, 3)
-# kk[["Adj Close", "sma_fast", "sma_slow"]].plot()
-# plt.figure(figsize=(20, 8))
-# kk[["k", "D"]].plot(alpha = 0.5)
-# plt.show()

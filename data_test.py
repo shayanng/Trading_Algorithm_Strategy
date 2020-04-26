@@ -16,6 +16,25 @@ for k,v in generated_data_daily.items():
         v_[f"ATR_{i}"] = ti.ATR(v_, i)
     data_with_atr.update({k:v_})
     
-print(data_with_atr)
-print("hi shayan")
-print("hello rn")
+
+# # test for slow_fast_SMA function
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# plt.style.use("ggplot")
+#
+# kk = pd.read_csv("data/data_AAPL.csv")
+# kk = slow_fast_SMA(kk, 100, 200)
+# kk[["Adj Close", "sma_fast", "sma_slow"]].plot()
+# plt.show()
+# # test for stochastic function
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# plt.style.use("ggplot")
+#
+# kk = pd.read_csv("data/data_AAPL.csv")
+# kk = slow_fast_SMA(kk, 100, 200)
+# kk = stochastic(kk, 14, 3, 3)
+# kk[["Adj Close", "sma_fast", "sma_slow"]].plot()
+# plt.figure(figsize=(20, 8))
+# kk[["k", "D"]].plot(alpha = 0.5)
+# plt.show()
