@@ -52,3 +52,45 @@ def getSMA(dataframe, period, on):
 
     dataframe[f"sma"] = dataframe[on].rolling(period).mean()
     return dataframe
+
+
+def slow_fast_SMA(dataframe, fast, slow):
+    """
+    Calculates both the slow and fast moving averages for the data
+    """
+    dataframe['sma_fast']=dataframe['Adj Close'].rolling(fast).mean()
+    dataframe['sma_slow']=dataframe['Adj Close'].rolling(slow).mean()
+    return dataframe
+
+# # test for slow_fast_SMA function
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# plt.style.use("ggplot")
+#
+# kk = pd.read_csv("data/data_AAPL.csv")
+# kk = slow_fast_SMA(kk, 100, 200)
+# kk[["Adj Close", "sma_fast", "sma_slow"]].plot()
+# plt.show()
+
+
+def stochastic(dataframe, a, b, c):
+    """
+    calculates the stochastic
+    """
+    dataframe["k"] = ((dataframe['Adj Close'] - dataframe['Low'].rolling(a).min())/(dataframe['High'].rolling(a).max()-dataframe['Low'].rolling(a).min()))*100
+    dataframe["k"] = dataframe["k"].rolling(b).mean()
+    dataframe["D"] = dataframe["k"].rolling(c).mean()
+    return dataframe
+
+# # test for stochastic function
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# plt.style.use("ggplot")
+#
+# kk = pd.read_csv("data/data_AAPL.csv")
+# kk = slow_fast_SMA(kk, 100, 200)
+# kk = stochastic(kk, 14, 3, 3)
+# kk[["Adj Close", "sma_fast", "sma_slow"]].plot()
+# plt.figure(figsize=(20, 8))
+# kk[["k", "D"]].plot(alpha = 0.5)
+# plt.show()
