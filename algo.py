@@ -24,3 +24,6 @@ df = ti.getSMA(dataframe=df, period=10, on="Adj Close")
 df = preprocessing.getPervValues(dataframe=df, period=1, on="Adj Close")
 df = trading.apply_sma_co(dataframe=df, on="Adj Close")
 print(df.tail())
+
+
+
