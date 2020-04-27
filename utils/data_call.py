@@ -50,3 +50,27 @@ def generate_data_intraday(tickers, interval: str, outputsize: str, ts):
                 continue
         attempts += 1
     return ohlc_intraday
+
+## FXCM API
+def get_fxcm_data(token, tickers, period, start, end):
+    """
+    Collects market data for a list of instruments from the FXCM API.
+
+    Args:
+        token: FXCM API Token.
+        tickers: List of tickers.
+        period: string - Time interval between data points.
+        start: datetime object - start date
+        end: datetime object - end date
+
+    Returns:
+        dataDict: Dictionary with Keys as Ticker names and values as dataframe
+    """
+    dataDict = {}
+    con = fxcmpy.fxcmpy(access_token=token, log_level='error', server='demo', log_file='log.txt') #init connection
+
+    for ticker in TICKERS:
+        ohlc = con.get_candles(ticker, period=period, start=start, end=end)
+        dataDict.update({ticker:ohlc})
+    con.close()
+    return dataDict
