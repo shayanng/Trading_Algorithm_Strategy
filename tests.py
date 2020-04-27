@@ -75,4 +75,5 @@ def ATR_dataframe(DF, per1, per2, per3):
     return df
 
 #calling for the ATR_dataframe function
-eur_usd_atr_h1 = ATR_dataframe(eur_usd_h1, 5, 7, 55)
+# eur_usd_atr_h1 = ATR_dataframe(eur_usd_h1, 5, 7, 55)
+
