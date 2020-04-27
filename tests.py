@@ -67,7 +67,7 @@ def ATR(DF, n):
 # eur_usd_atr55_d1 = ti.ATR(eur_usd_d1, 55)
 
 
-def ATR_dataframe(DF, per1, per2, per3):
+def get_atr_values(DF, per1, per2, per3):
     df = DF.copy()
     df[f"ATR{per1}"] = ATR(df, per1)
     df[f"ATR{per2}"] = ATR(df, per2)
@@ -75,5 +75,5 @@ def ATR_dataframe(DF, per1, per2, per3):
     return df
 
 #calling for the ATR_dataframe function
-# eur_usd_atr_h1 = ATR_dataframe(eur_usd_h1, 5, 7, 55)
+eur_usd_atr_h1 = get_atr_values(eur_usd_h1, 5, 7, 55)
 
