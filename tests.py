@@ -1,7 +1,6 @@
-from utils import fxcm_toolkits as ft
-from utils import KPIs as kpi
+from utils import fxcm_toolkit as ft
 from utils import data_call as dc
-from utils import tech_indicator as ti
+from utils import tech_indicators as ti
 from alpha_vantage.timeseries import TimeSeries
 import matplotlib.pyplot as plt
 import numpy as np
