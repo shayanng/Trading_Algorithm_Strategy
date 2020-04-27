@@ -1,5 +1,6 @@
 import fxcmpy
 import socketio
+import socketIO_client
 
 def create_ohlc(fxcm_df):
     """
