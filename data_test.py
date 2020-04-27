@@ -3,6 +3,9 @@ from utils import tech_indicators as ti
 from utils import fxcm_toolkit as fxtlk
 import pandas as pd
 import  time
+import fxcmpy
+import socketio
+import socketIO_client
 import datetime as dt
 # import matplotlib.pyplot as plt
 # plt.style.use("ggplot")
