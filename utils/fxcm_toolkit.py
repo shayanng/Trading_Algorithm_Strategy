@@ -12,11 +12,11 @@ def create_ohlc(fxcm_df):
     Returns:
         dataframe containing aggregated open, high, low, close
     """
-    fxcm_df["open"] = (fxcm_df["bidopen"] + fxcm_df["askopen"])/2
-    fxcm_df["high"] = (fxcm_df["bidhigh"] + fxcm_df["askhigh"])/2
-    fxcm_df["low"] = (fxcm_df["bidlow"] + fxcm_df["asklow"])/2
-    fxcm_df["close"] = (fxcm_df["bidclose"] + fxcm_df["askclose"])/2
-    return fxcm_df[["open", "high", "low", "close"]]
+    fxcm_df["Open"] = (fxcm_df["bidopen"] + fxcm_df["askopen"])/2
+    fxcm_df["High"] = (fxcm_df["bidhigh"] + fxcm_df["askhigh"])/2
+    fxcm_df["Low"] = (fxcm_df["bidlow"] + fxcm_df["asklow"])/2
+    fxcm_df["Close"] = (fxcm_df["bidclose"] + fxcm_df["askclose"])/2
+    return fxcm_df[["Open", "High", "Low", "Close"]]
 
 
 def get_fxcm_data(token, tickers, period, start, end):
