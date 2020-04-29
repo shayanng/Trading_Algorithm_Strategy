@@ -1,4 +1,4 @@
-def MACD(DF, a, b, c):
+def getMACD(DF, a, b, c):
     df = DF.copy()
     df["MA_Fast"] = df["Adj Close"].ewm(span = a, min_periods = a).mean()
     df["MA_Slow"] = df["Adj Close"].ewm(span = b, min_periods = b).mean()
