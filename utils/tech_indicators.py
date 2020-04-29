@@ -19,7 +19,7 @@ def Bollinger_Bands(DF, n):
     df.dropna(inplace=True)
     return df
 
-def ATR(DF, n):
+def getATR(DF, n):
     """
     Calculates ATR for the given period
     """
