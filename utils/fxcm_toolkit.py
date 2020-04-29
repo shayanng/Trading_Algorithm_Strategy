@@ -1,6 +1,7 @@
 import fxcmpy
 import socketio
 import socketIO_client
+import pandas as pd
 
 def create_ohlc(fxcm_df):
     """
@@ -41,4 +42,10 @@ def get_fxcm_data(token, tickers, period, start, end):
         ohlc = con.get_candles(ticker, period=period, start=start, end=end)
         dataDict.update({ticker:ohlc})
     con.close()
+
+    # check for null/nan
+    for v in dataDict.values():
+        if v.isnull().any().any(): 
+            print("WARNING! Dataframe contains null values!")
+            
     return dataDict

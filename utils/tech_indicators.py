@@ -1,4 +1,4 @@
-def MACD(DF, a, b, c):
+def getMACD(DF, a, b, c):
     df = DF.copy()
     df["MA_Fast"] = df["Adj Close"].ewm(span = a, min_periods = a).mean()
     df["MA_Slow"] = df["Adj Close"].ewm(span = b, min_periods = b).mean()
@@ -19,7 +19,7 @@ def Bollinger_Bands(DF, n):
     df.dropna(inplace=True)
     return df
 
-def ATR(DF, n):
+def getATR(DF, n):
     """
     Calculates ATR for the given period
     """
@@ -47,8 +47,7 @@ def getSMA(dataframe, period, on):
         dataframe containing the sma as a column.
     """
 
-    dataframe[f"sma"] = dataframe[on].rolling(period).mean()
-    return dataframe
+    return dataframe[on].rolling(period).mean()
 
 def slow_fast_SMA(dataframe, fast, slow):
     """

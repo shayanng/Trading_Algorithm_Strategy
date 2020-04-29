@@ -1,22 +1,19 @@
+import pandas as pd
+import  time
+import datetime as dt
 from utils import data_call as dc
 from utils import tech_indicators as ti
 from utils import fxcm_toolkit as fxtlk
-import pandas as pd
-import  time
-import fxcmpy
-import socketio
-import socketIO_client
-import datetime as dt
-# import matplotlib.pyplot as plt
-# plt.style.use("ggplot")
-
+from utils import preprocessing
+from utils import trading
+from utils import visuals
 
 # FXCM Demo Account!
 DEMO_FXCM_R = "7d98094ee68f29fb83fd276bcb611556e55769f5"
 TICKERS = ["EUR/USD", "GBP/USD","USD/CAD"]
-PERIOD = "m15"
-START = dt.datetime(2018, 1, 1)
-END = dt.datetime(2018, 3, 1)
+PERIOD = "D1"
+START = dt.datetime(2015, 1, 1)
+END = dt.datetime(2019, 1, 1)
 data_fxcm_dict = fxtlk.get_fxcm_data(token=DEMO_FXCM_R, tickers=TICKERS, period=PERIOD, start=START, end=END) # call api
 
 # average bid/ask (consider OHLC only)
@@ -24,21 +21,18 @@ data_fxcm_ohlc = {}
 for ticker, fxcmdf in data_fxcm_dict.items():
     ohlc = fxtlk.create_ohlc(fxcmdf)
     data_fxcm_ohlc.update({ticker:ohlc})
-    
-print(data_fxcm_ohlc)
 
-# Yahoo API
-# TICKERS = ["IBM", "AAPL", "TSLA", "NVDA"]
-# generated_data_daily = dc.generate_data(TICKERS, interval="d", n_per=90)
+# apply strategy and plot   
+df = data_fxcm_ohlc["GBP/USD"]
+df_signals = trading.apply_sma_co(dataframe=df, on="Close", period=50) # apply strategy
 
-# ATR Test
-# atr_periods = [3, 7, 55]
-# data_with_atr = {}
-# for k,v in generated_data_daily.items():
-#     v_ = v.copy()
-#     for i in atr_periods:
-#         v_[f"ATR_{i}"] = ti.ATR(v_, i)
-#     data_with_atr.update({k:v_})
+# other indicators jsut for visualisation purposes. (actual strategy is on 50 moving average)
+df["sma_100"] = ti.getSMA(df, 100, "Close")
+df["sma_200"] = ti.getSMA(df, 200, "Close")
+df["sma_300"] = ti.getSMA(df, 300, "Close")
+
+sma_plot = visuals.plot_trades(df_signals, on="Close", indicators=["sma", "sma_100", "sma_200", "sma_300"]) # plot trades
+sma_plot.show()
 
 # # Stochastic Test
 # kk = pd.read_csv("data/data_AAPL.csv")
