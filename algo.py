@@ -6,8 +6,8 @@ from utils import preprocessing
 from utils import trading
 
 TICKERS = ["IBM", "AAPL", "TSLA", "NVDA"]
-API_KEY = "3R9JOE98DJOXYHKJ"
-ts = TimeSeries(key=API_KEY, output_format="pandas")  # initialise timeseries
+AV_KEY = "3R9JOE98DJOXYHKJ" # alpha-vantage demo api
+ts = TimeSeries(key=AV_KEY, output_format="pandas")  # initialise timeseries av
 
 # Yahoo API
 # generated_data_daily = dc.generate_data(TICKERS, interval="d", n_per=90)
