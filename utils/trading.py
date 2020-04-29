@@ -4,10 +4,10 @@ from utils import preprocessing
 def apply_sma_co(dataframe, on, period):
 
     # get moving average
-    df = ti.getSMA(dataframe=dataframe, period=period, on=on)
+    dataframe["sma"] = ti.getSMA(dataframe=dataframe, period=period, on=on)
 
     # process data
-    df = preprocessing.getPervValues(dataframe=df, period=1, on=on) # Period MUST be 1 here.
+    df = preprocessing.getPervValues(dataframe=dataframe, period=1, on=on) # Period MUST be 1 here.
 
     """
     Applies SMA crossover strategy.

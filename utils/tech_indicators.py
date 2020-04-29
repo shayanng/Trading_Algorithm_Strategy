@@ -47,8 +47,7 @@ def getSMA(dataframe, period, on):
         dataframe containing the sma as a column.
     """
 
-    dataframe[f"sma"] = dataframe[on].rolling(period).mean()
-    return dataframe
+    return dataframe[on].rolling(period).mean()
 
 def slow_fast_SMA(dataframe, fast, slow):
     """
