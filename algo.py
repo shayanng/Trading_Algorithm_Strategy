@@ -19,11 +19,6 @@ ts = TimeSeries(key=API_KEY, output_format="pandas")  # initialise timeseries
 # for k in generated_data.keys():
 #     generated_data[k].to_csv(f"./data/data_{k}.csv")  # save as csv
 
-df = pd.read_csv("./data/data_AAPL.csv") # read data
-df = ti.getSMA(dataframe=df, period=10, on="Adj Close")
-df = preprocessing.getPervValues(dataframe=df, period=1, on="Adj Close")
-df = trading.apply_sma_co(dataframe=df, on="Adj Close")
-print(df.tail())
 
 
 
