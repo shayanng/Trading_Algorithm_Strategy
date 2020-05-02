@@ -54,36 +54,6 @@ def market_order(instrument, units, sl):
     client.request(r)
 
 
-def trade_signal(df, curr):
-    """
-    Generates signal
-    """
-    global upward_sma_dict, downward_sma_dict
-    signal = ""
-    if df["sma_fast"][-1] > df["sma_slow"] and df["sma_fast"][-2] < df["sma_slow"][-2]:
-        upward_sma_dict[curr] = True
-        downward_sma_dict[curr] = False
-    if df["sma_fast"][-1] < df["sma_slow"] and df["sma_fast"][-2] > df["sma_slow"][-2]:
-        upward_sma_dict[curr] = False
-        downward_sma_dict[curr] = True
-    if upward_sma_dict[curr] == True and min(df["K"][-1], df["D"][-1]) > 25 and max((df["K"][-2], df["D"][-2])) < 25:
-        signal = "Buy"
-    if downward_sma_dict[curr] == True and min(df["K"][-1], df["D"][-1]) > 75 and max((df["K"][-2], df["D"][-2])) < 75:
-        signal = "Sell"
-
-    plt.subplot(211)
-    plt.plot(df.loc[:, ['c', 'sma_fast', 'sma_slow']])
-    plt.title('SMA Crossover & Stochastic')
-    plt.legend(('close', 'sma_fast', 'sma_slow'), loc='upper left')
-
-    plt.subplot(212)
-    plt.plot(df.loc[:, ['K', 'D']])
-    plt.hlines(y=25, xmin=0, xmax=len(df), linestyles='dashed')
-    plt.hlines(y=75, xmin=0, xmax=len(df), linestyles='dashed')
-    plt.show()
-    return signal
-
-
 def ATR(DF,n):
     "function to calculate True Range and Average True Range"
     df = DF.copy()
