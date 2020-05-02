@@ -62,11 +62,20 @@ def slow_fast_SMA(dataframe, fast, slow):
     return dataframe
 
 
-def stochastic(dataframe, a, b, c):
+def stochastic(df, a, b, c):
     """
-    calculates the stochastic
+    function to calculate stochastic
     """
-    dataframe["k"] = ((dataframe['Adj Close'] - dataframe['Low'].rolling(a).min())/(dataframe['High'].rolling(a).max()-dataframe['Low'].rolling(a).min()))*100
-    dataframe["k"] = dataframe["k"].rolling(b).mean()
-    dataframe["D"] = dataframe["k"].rolling(c).mean()
-    return dataframe
+    df['k']=((df['c'] - df['l'].rolling(a).min())/(df['h'].rolling(a).max()-df['l'].rolling(a).min()))*100
+    df['K']=df['k'].rolling(b).mean()
+    df['D']=df['K'].rolling(c).mean()
+    return df
+
+
+def SMA_slow_fast(df, a, b):
+    """
+    function to calculate slow and fast simple moving average
+    """
+    df["sma_fast"] = df["c"].rolling(a).mean()
+    df["sma_slow"] = df["c"].rolling(b).mean()
+    return df
