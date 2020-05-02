@@ -16,13 +16,13 @@ START = dt.datetime(2015, 1, 1)
 END = dt.datetime(2019, 1, 1)
 data_fxcm_dict = fxtlk.get_fxcm_data(token=DEMO_FXCM_R, tickers=TICKERS, period=PERIOD, start=START, end=END) # call api
 
-# average bid/ask (consider OHLC only)
+#average bid/ask (consider OHLC only)
 data_fxcm_ohlc = {}
 for ticker, fxcmdf in data_fxcm_dict.items():
     ohlc = fxtlk.create_ohlc(fxcmdf)
     data_fxcm_ohlc.update({ticker:ohlc})
 
-# apply strategy and plot   
+# apply strategy and plot
 df = data_fxcm_ohlc["GBP/USD"]
 df_signals = trading.apply_sma_co(dataframe=df, on="Close", period=50) # apply strategy
 

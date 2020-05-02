@@ -7,6 +7,7 @@ def getMACD(DF, a, b, c):
     df.dropna(inplace = True)
     return df
 
+
 def Bollinger_Bands(DF, n):
     """
     this function calculates the bollinger bands
@@ -18,6 +19,7 @@ def Bollinger_Bands(DF, n):
     df["BB_width"] = df["BB_up"] - df["BB_dn"]
     df.dropna(inplace=True)
     return df
+
 
 def getATR(DF, n):
     """
@@ -32,6 +34,7 @@ def getATR(DF, n):
     #df['ATR'] = df['TR'].ewm(span=n,adjust=False,min_periods=n).mean()
     # df2 = df.drop(['H-L','H-PC','L-PC'],axis=1)
     return df["ATR"]
+
 
 def getSMA(dataframe, period, on):
     """
@@ -49,6 +52,7 @@ def getSMA(dataframe, period, on):
 
     return dataframe[on].rolling(period).mean()
 
+
 def slow_fast_SMA(dataframe, fast, slow):
     """
     Calculates both the slow and fast moving averages for the data
@@ -56,6 +60,7 @@ def slow_fast_SMA(dataframe, fast, slow):
     dataframe['sma_fast']=dataframe['Adj Close'].rolling(fast).mean()
     dataframe['sma_slow']=dataframe['Adj Close'].rolling(slow).mean()
     return dataframe
+
 
 def stochastic(dataframe, a, b, c):
     """
