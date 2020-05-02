@@ -70,6 +70,7 @@ def trade_signal(df, curr):
         signal = "Buy"
     if downward_sma_dict[curr] == True and min(df["K"][-1], df["D"][-1]) > 75 and max((df["K"][-2], df["D"][-2])) < 75:
         signal = "Sell"
+
     plt.subplot(211)
     plt.plot(df.loc[:, ['c', 'sma_fast', 'sma_slow']])
     plt.title('SMA Crossover & Stochastic')
@@ -79,9 +80,7 @@ def trade_signal(df, curr):
     plt.plot(df.loc[:, ['K', 'D']])
     plt.hlines(y=25, xmin=0, xmax=len(df), linestyles='dashed')
     plt.hlines(y=75, xmin=0, xmax=len(df), linestyles='dashed')
-
     plt.show()
-
     return signal
 
 
